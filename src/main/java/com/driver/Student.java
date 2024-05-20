@@ -10,12 +10,14 @@ public class Student {
 
     }
 
+
     public Student(String name, int age, double averageScore) {
         super();
         this.name = name;
         this.age = age;
         this.averageScore = averageScore;
     }
+
 
     public String getName() {
         return name;
@@ -40,4 +42,5 @@ public class Student {
     public void setAverageScore(double averageScore) {
         this.averageScore = averageScore;
     }
+
 }

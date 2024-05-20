@@ -18,8 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("students")
 public class StudentController {
+
     @Autowired
     private StudentService studentService;
+
+
+
     public StudentController(StudentService studentService) {
         super();
         this.studentService= studentService;
@@ -28,6 +32,7 @@ public class StudentController {
     public StudentController() {
 
     }
+
 
     @PostMapping("/add-student")
     public ResponseEntity<String> addStudent(@RequestBody Student student){
@@ -43,38 +48,34 @@ public class StudentController {
 
     @PutMapping("/add-student-teacher-pair")
     public ResponseEntity<String> addStudentTeacherPair(@RequestParam String student, @RequestParam String teacher){
-        studentService.createStudentTeacherPair(student,teacher);
-
+        studentService.createStudentTeacherPair(student, teacher);
         return new ResponseEntity<>("New student-teacher pair added successfully", HttpStatus.CREATED);
     }
 
     @GetMapping("/get-student-by-name/{name}")
     public ResponseEntity<Student> getStudentByName(@PathVariable String name){
-        Student student = studentService.findStudent(name); // Assign student by calling service layer method
-
-
+        Student student = studentService.findStudent(name);
         return new ResponseEntity<>(student, HttpStatus.CREATED);
     }
 
     @GetMapping("/get-teacher-by-name/{name}")
     public ResponseEntity<Teacher> getTeacherByName(@PathVariable String name){
-        Teacher teacher =  studentService.findTeacher(name); // Assign student by calling service layer method
-
+        Teacher teacher = studentService.findTeacher(name); // Assign student by calling service layer method
 
         return new ResponseEntity<>(teacher, HttpStatus.CREATED);
     }
 
     @GetMapping("/get-students-by-teacher-name/{teacher}")
     public ResponseEntity<List<String>> getStudentsByTeacherName(@PathVariable String teacher){
-        List<String> students =  studentService.findStudentsFromTeacher(teacher); // Assign list of student by calling service layer method
+        List<String> students = studentService.findStudentsFromTeacher(teacher); // Assign list of student by calling service layer method
 
         return new ResponseEntity<>(students, HttpStatus.CREATED);
     }
 
     @GetMapping("/get-all-students")
     public ResponseEntity<List<String>> getAllStudents(){
-        List<String> students = null; // Assign list of student by calling service layer method
-        studentService.findAllStudents();
+        List<String> students = studentService.findAllStudents(); // Assign list of student by calling service layer method
+
         return new ResponseEntity<>(students, HttpStatus.CREATED);
     }
 
@@ -86,9 +87,11 @@ public class StudentController {
     }
     @DeleteMapping("/delete-all-teachers")
     public ResponseEntity<String> deleteAllTeachers(){
-        studentService.deleteAllTeachers();
+        studentService.deleteAllTeachers() ;
+
         return new ResponseEntity<>("All teachers deleted successfully", HttpStatus.CREATED);
     }
+
     public StudentService getStudentRepository() {
         return studentService;
     }
@@ -96,4 +99,6 @@ public class StudentController {
     public void setStudentRepository(StudentService studentService) {
         this.studentService = studentService;
     }
+
+
 }
